@@ -25,7 +25,7 @@ public class BookDAOImpl implements BookDAO {
     private Session session;
     private Transaction transaction;
 
-    private AuthorDAO authorDAO = new AuthorDAOImpl();
+    private final AuthorDAO authorDAO = new AuthorDAOImpl();
 
     public BookDAOImpl() {
         sessionFactory = HibernateUtil.getSessionFactory();
@@ -40,15 +40,21 @@ public class BookDAOImpl implements BookDAO {
             persistedAuthors.add(persistedAuthor);
         }
         book.setAuthors(persistedAuthors);
-        session.persist(book);
-        commitTransactionAndCloseSession();
+        try {
+            session.persist(book);
+            commitTransactionAndCloseSession();
+        } catch (Exception e) {
+            log.severe("Could not save book. Duplicate title");
+            transaction.rollback();
+            closeSession();
+        }
     }
 
     @Override
     public void insertMultipleBooks(List<Book> books) {
-        openSessionAndTransaction();
-        books.forEach(book -> session.persist(book));
-        commitTransactionAndCloseSession();
+        for (Book book : books) {
+            insertBook(book);
+        }
     }
 
     @Override

@@ -9,8 +9,10 @@ import ro.itschool.entity.PublishingHouse;
 import ro.itschool.entity.Title;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -18,15 +20,16 @@ public class Main {
     public static void main(String[] args) {
         BookDAO bookDAO = new BookDAOImpl();
 
+        bookDAO.insertMultipleBooks(get50RandomBooks());
 
         //------ insert complete book --------------
-        bookDAO.insertBook(getRandomBook());
+//        bookDAO.insertBook(getRandomBook());
 
         //----- read complete book -----------------
         bookDAO.getAllBooks().forEach(System.out::println);
 
         //---- delete book -------------------------
-        bookDAO.deleteBookById(1);
+//        bookDAO.deleteBookById(1);
 
 
     }
@@ -58,7 +61,7 @@ public class Main {
         return authors;
     }
 
-//    private static List<Book> get50RandomBooks() {
-//        return Stream.generate(Main::getRandomBook).limit(50).toList();
-//    }
+    private static List<Book> get50RandomBooks() {
+        return Stream.generate(Main::getRandomBook).limit(50).toList();
+    }
 }
