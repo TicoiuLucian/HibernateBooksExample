@@ -21,6 +21,9 @@
         <property name="hibernate.hbm2ddl.import_files">data.sql</property>
 
         <mapping class="ro.itschool.entity.Book"/>
+        <mapping class="ro.itschool.entity.Title"/>
+        <mapping class="ro.itschool.entity.PublishingHouse"/>
+        <mapping class="ro.itschool.entity.Author"/>
 
     </session-factory>
 

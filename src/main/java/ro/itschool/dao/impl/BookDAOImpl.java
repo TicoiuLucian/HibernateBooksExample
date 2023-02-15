@@ -7,12 +7,16 @@ import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import ro.itschool.dao.AuthorDAO;
 import ro.itschool.dao.BookDAO;
+import ro.itschool.entity.Author;
 import ro.itschool.entity.Book;
 import ro.itschool.utils.HibernateUtil;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Log
 public class BookDAOImpl implements BookDAO {
@@ -21,6 +25,8 @@ public class BookDAOImpl implements BookDAO {
     private Session session;
     private Transaction transaction;
 
+    private AuthorDAO authorDAO = new AuthorDAOImpl();
+
     public BookDAOImpl() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
@@ -28,6 +34,12 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void insertBook(Book book) {
         openSessionAndTransaction();
+        Set<Author> persistedAuthors = new HashSet<>();
+        for (Author author : book.getAuthors()) {
+            Author persistedAuthor = authorDAO.insertAuthor(author);
+            persistedAuthors.add(persistedAuthor);
+        }
+        book.setAuthors(persistedAuthors);
         session.persist(book);
         commitTransactionAndCloseSession();
     }
@@ -76,11 +88,10 @@ public class BookDAOImpl implements BookDAO {
         Optional<Book> optionalBook = getBookById(id);
         if (optionalBook.isPresent()) {
             openSessionAndTransaction();
-            session.remove(optionalBook);
+            session.remove(optionalBook.get());
             commitTransactionAndCloseSession();
         } else
             log.info("Cannot find entity with id=" + id);
-
     }
 
     @Override
