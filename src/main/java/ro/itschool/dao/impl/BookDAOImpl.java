@@ -34,12 +34,6 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void insertBook(Book book) {
         openSessionAndTransaction();
-        Set<Author> persistedAuthors = new HashSet<>();
-        for (Author author : book.getAuthors()) {
-            Author persistedAuthor = authorDAO.insertAuthor(author);
-            persistedAuthors.add(persistedAuthor);
-        }
-        book.setAuthors(persistedAuthors);
         try {
             session.persist(book);
             commitTransactionAndCloseSession();

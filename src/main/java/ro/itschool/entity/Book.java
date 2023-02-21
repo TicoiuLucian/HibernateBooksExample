@@ -13,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 //@Table(name = "Tabela_Carti")
-
 public class Book {
 
     @Id //-Primary Key
@@ -23,7 +22,7 @@ public class Book {
     //    @Column(name = "Scriitor", nullable = false, unique = true, length = 20)
 //    private String author;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<Author> authors = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -47,7 +46,3 @@ public class Book {
     }
 
 }
-//Commentary
-//comentariu
-//comentariu
-//comentariu
