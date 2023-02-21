@@ -11,6 +11,10 @@ import java.util.Optional;
 //Aici vor fi toate metodele prin care vom interactiona cu DB-ul
 public interface BookDAO {
 
+    /** Insert a @{@link Book} into table
+     *
+     * @param book to be persisted
+     */
     void insertBook(Book book);
 
     void insertMultipleBooks(List<Book> book);
