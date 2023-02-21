@@ -40,4 +40,3 @@ public class Author {
     }
 
 }
-// comentariu Adrian
