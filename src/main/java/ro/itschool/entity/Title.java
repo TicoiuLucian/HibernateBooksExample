@@ -3,6 +3,8 @@ package ro.itschool.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+// comm Bogdan Ene
+
 @Entity
 @Getter
 @Setter
@@ -26,3 +28,4 @@ public class Title {
         this.name = name;
     }
 }
+
