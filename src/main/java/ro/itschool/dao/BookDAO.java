@@ -19,6 +19,11 @@ public interface BookDAO {
 //comentariu Galan bogdan
     void insertMultipleBooks(List<Book> book);
 
+    /**
+     *
+     * @return a List of all Books
+     */
+
     List<Book> getAllBooks();
 
     Optional<Book> getBookById(Integer id);
