@@ -9,6 +9,8 @@ import ro.itschool.utils.HibernateUtil;
 
 public class AuthorDAOImpl implements AuthorDAO {
 
+    /** some comment */
+
     private final SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
