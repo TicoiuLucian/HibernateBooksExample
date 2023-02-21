@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface BookDAO {
 
     void insertBook(Book book);
-
+//comentariu Galan bogdan
     void insertMultipleBooks(List<Book> book);
 
     List<Book> getAllBooks();
