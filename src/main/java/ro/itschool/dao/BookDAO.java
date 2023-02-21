@@ -16,10 +16,12 @@ public interface BookDAO {
      * @param book
      */
     void insertBook(Book book);
-//comentariu Galan bogdan
+
+    //comentariu Galan bogdan
     void insertMultipleBooks(List<Book> book);
 
-    /** This method returns a list of all {@link Book}
+    /**
+     * This method returns a list of all {@link Book}
      *
      * @return List<Book>
      */
@@ -33,4 +35,5 @@ public interface BookDAO {
 
     Book getBookByIdWithCriteriaBuilder(Integer id);
 
+    Book getBookByIdWithHQL(Integer id);
 }

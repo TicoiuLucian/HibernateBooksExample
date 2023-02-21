@@ -26,10 +26,12 @@ public class Main {
 //        bookDAO.insertBook(getRandomBook());
 
         //----- read complete book -----------------
-        bookDAO.getAllBooks().forEach(System.out::println);
+//        bookDAO.getAllBooks().forEach(System.out::println);
 
         //---- delete book -------------------------
 //        bookDAO.deleteBookById(1);
+
+        System.out.println(bookDAO.getBookByIdWithHQL(1));
 
 
     }

@@ -1,12 +1,15 @@
 package ro.itschool.dao.impl;
 
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
 import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.SelectionQuery;
 import ro.itschool.dao.AuthorDAO;
 import ro.itschool.dao.BookDAO;
 import ro.itschool.entity.Author;
@@ -60,6 +63,17 @@ public class BookDAOImpl implements BookDAO {
         List<Book> bookList = session.createQuery(getAllBooksQuery).getResultList();
         closeSession();
         return bookList;
+    }
+
+    public Book getBookByIdWithHQL(Integer id) {
+        openSession();
+        String selectHQL = "SELECT b FROM Book b where b.id=:id";
+        SelectionQuery<Book> results = session.createSelectionQuery(selectHQL, Book.class);
+        results.setParameter("id", id);
+        Book singleResultOrNull = results.getSingleResultOrNull();
+        closeSession();
+        return singleResultOrNull;
+
     }
 
     @Override
