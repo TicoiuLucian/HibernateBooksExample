@@ -16,7 +16,7 @@ public interface BookDAO {
      * @param book
      */
     void insertBook(Book book);
-
+//comentariu Galan bogdan
     void insertMultipleBooks(List<Book> book);
 
     List<Book> getAllBooks();
